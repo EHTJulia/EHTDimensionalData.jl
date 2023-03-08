@@ -8,6 +8,7 @@ DimensionalData = "0703355e-b756-11e9-17c0-8b28908087d0"
 Reexport = "189a3867-3050-52da-a836-e630ba90ab69"
 
 [compat]
+DimensionalData = "0.24"
 Reexport = "1.2"
 julia = "1.8"
 
