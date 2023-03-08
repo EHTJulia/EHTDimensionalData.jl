@@ -3,7 +3,12 @@ uuid = "1ac9d6a4-0fea-4ca3-8a21-bd292c035e25"
 authors = ["Kazunori Akiyama"]
 version = "0.1.0"
 
+[deps]
+DimensionalData = "0703355e-b756-11e9-17c0-8b28908087d0"
+Reexport = "189a3867-3050-52da-a836-e630ba90ab69"
+
 [compat]
+Reexport = "1.2"
 julia = "1.8"
 
 [extras]
