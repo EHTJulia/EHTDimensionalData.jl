@@ -7,6 +7,7 @@ using Reexport
 # Other Modules
 using Base
 using EHTUtils
+using OrderedCollections
 
 # Source Codes
 include("./append.jl")

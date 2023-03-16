@@ -1,4 +1,6 @@
-function Base.getindex(ds::DimStack, idx::Union{Int, Colon, AbstractRange, AbstractArray, Tuple}...)
+
+# Overwrite the getindex function for DimStack.
+function Base.getindex(ds::DimStack, idx::Union{Int,Colon,AbstractRange,AbstractArray,Tuple}...)
     dim_names = name.(dims(ds))
     ndim = length(dim_names)
     nlist = size(ds)
@@ -10,7 +12,11 @@ function Base.getindex(ds::DimStack, idx::Union{Int, Colon, AbstractRange, Abstr
     idx_list = Vector{Any}()
     for i in 1:ndim
         if i <= length(idx)
-            push!(idx_list, idx[i])
+            if isa(idx[i], Int)
+                push!(idx_list, idx[i]:idx[i])
+            else
+                push!(idx_list, idx[i])
+            end
         else
             push!(idx_list, Colon())
         end
@@ -20,7 +26,7 @@ function Base.getindex(ds::DimStack, idx::Union{Int, Colon, AbstractRange, Abstr
     for key in keys(ds)
         dadim_names = name.(dims(ds[key]))
         ndadim = length(dadim_names)
-        
+
         selidx_list = Vector{Any}()
         for i in 1:ndadim
             dimidx = findfirst(dim_names .== dadim_names[i])
@@ -35,8 +41,8 @@ function Base.getindex(ds::DimStack, idx::Union{Int, Colon, AbstractRange, Abstr
 
     newds = DimStack(
         NamedTuple(ds_list),
-        metadata = DimensionalData.Dimensions.LookupArrays.metadata(ds)
+        metadata=DimensionalData.Dimensions.LookupArrays.metadata(ds)
     )
-    
+
     return newds
 end
