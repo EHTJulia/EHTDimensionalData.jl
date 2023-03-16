@@ -1,15 +1,17 @@
 name = "EHTDimensionalData"
 uuid = "1ac9d6a4-0fea-4ca3-8a21-bd292c035e25"
 authors = ["Kazunori Akiyama"]
-version = "0.1.1"
+version = "0.1.2"
 
 [deps]
 DimensionalData = "0703355e-b756-11e9-17c0-8b28908087d0"
 EHTUtils = "9d0fa6a6-ae25-4c2e-8152-6c4b7f2016aa"
+OrderedCollections = "bac558e1-5e72-5ebc-8fee-abe8a469f55d"
 Reexport = "189a3867-3050-52da-a836-e630ba90ab69"
 
 [compat]
 DimensionalData = "0.24"
+OrderedCollections = "1.4"
 Reexport = "1.2"
 julia = "1.8"
 
