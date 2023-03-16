@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Custom Methods for DimStack · EHTDimensionalData.jl</title><script data-outdated-warner src="../assets/warner.js"></script><link rel="canonical" href="https://ehtjulia.github.io/EHTDimensionalData.jl/dimstack/"/><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.045/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.24/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../">EHTDimensionalData.jl</a></span></div><form class="docs-search" action="../search/"><input class="docs-search-query" id="documenter-search-query" name="q" type="text" placeholder="Search docs"/></form><ul class="docs-menu"><li><a class="tocitem" href="../">Home</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>Custom Methods for <code>DimStack</code></a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Custom Methods for <code>DimStack</code></a></li></ul></nav><div class="docs-right"><a class="docs-edit-link" href="https://github.com/EHTJulia/EHTDimensionalData.jl/blob/main/docs/src/dimstack.md#" title="Edit on GitHub"><span class="docs-icon fab"></span><span class="docs-label is-hidden-touch">Edit on GitHub</span></a><a class="docs-settings-button fas fa-cog" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-sidebar-button fa fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a></div></header><article class="content" id="documenter-page"><h1 id="Custom-Methods-for-DimStack"><a class="docs-heading-anchor" href="#Custom-Methods-for-DimStack">Custom Methods for <code>DimStack</code></a><a id="Custom-Methods-for-DimStack-1"></a><a class="docs-heading-anchor-permalink" href="#Custom-Methods-for-DimStack" title="Permalink"></a></h1><p>The package provides and aims to implement custom methods to handle the <code>DimStack</code> data type originally in <a href="https://github.com/rafaqz/DimensionalData.jl">DimensionalData.jl</a>.</p><h2 id="Data-Selection"><a class="docs-heading-anchor" href="#Data-Selection">Data Selection</a><a id="Data-Selection-1"></a><a class="docs-heading-anchor-permalink" href="#Data-Selection" title="Permalink"></a></h2><p>The package partially overwrites the getindex method for the <code>DimStack</code> data type. Supposed that you have the following <code>visds::DimStack</code> data, which is a radio-astronomy interferometric data set loaded by <a href="https://github.com/EHTJulia/EHTUVData.jl">EHTUVData.jl</a>.</p><pre><code class="language-julia hljs">julia&gt; visds
+DimStack with dimensions: 
+  Dim{:ch} Sampled{Int64} Int64[1] ForwardOrdered Irregular Points,
+  Dim{:spw} Sampled{Int64} Int64[1, 2, 3, 4] ForwardOrdered Irregular Points,
+  Dim{:data} Sampled{Int64} Int64[1, 2, …, 55997, 55998] ForwardOrdered Irregular Points,
+  Dim{:pol} Sampled{Int64} Int64[1, 2, 3, 4] ForwardOrdered Irregular Points
+and 20 layers:
+  :visibility   ComplexF64 dims: Dim{:ch}, Dim{:spw}, Dim{:data}, Dim{:pol} (1×4×55998×4)
+  :sigma        Float64 dims: Dim{:ch}, Dim{:spw}, Dim{:data}, Dim{:pol} (1×4×55998×4)
+  :flag         Int8 dims: Dim{:ch}, Dim{:spw}, Dim{:data}, Dim{:pol} (1×4×55998×4)
+  :polarization String dims: Dim{:pol} (4)
+  :usec         Float64 dims: Dim{:data} (55998)
+  :vsec         Float64 dims: Dim{:data} (55998)
+  :wsec         Float64 dims: Dim{:data} (55998)
+  :mjd          Float64 dims: Dim{:data} (55998)
+  :Δmjd         Float64 dims: Dim{:data} (55998)
+  :antid1       Int64 dims: Dim{:data} (55998)
+  :antid2       Int64 dims: Dim{:data} (55998)
+  :scan         Int64 dims: Dim{:data} (55998)
+  :νspw         Float64 dims: Dim{:spw} (4)
+  :Δνch         Float64 dims: Dim{:spw} (4)
+  :sideband     Float64 dims: Dim{:spw} (4)
+  :ν            Float64 dims: Dim{:ch}, Dim{:spw} (1×4)
+  :u            Float64 dims: Dim{:ch}, Dim{:spw}, Dim{:data} (1×4×55998)
+  :v            Float64 dims: Dim{:ch}, Dim{:spw}, Dim{:data} (1×4×55998)
+  :w            Float64 dims: Dim{:ch}, Dim{:spw}, Dim{:data} (1×4×55998)
+  :uvdist       Float64 dims: Dim{:ch}, Dim{:spw}, Dim{:data} (1×4×55998)</code></pre><p>We keep most of the getindex methods from <a href="https://github.com/rafaqz/DimensionalData.jl">DimensionalData.jl</a>, for instance, you can select a specific <code>DimArray</code> in the <code>DimStack</code> data set by using a <code>key::Symbol</code>.</p><pre><code class="language-julia hljs">julia&gt; # selecting `:u` array
+julia&gt; u = visds[:u]
+1×4×55998 DimArray{Float64,3} u with dimensions: 
+  Dim{:ch} Sampled{Int64} Int64[1] ForwardOrdered Irregular Points,
+  Dim{:spw} Sampled{Int64} Int64[1, 2, 3, 4] ForwardOrdered Irregular Points,
+  Dim{:data} Sampled{Int64} Int64[1, 2, …, 55997, 55998] ForwardOrdered Irregular Points
+[:, :, 1]
+         1         2     3           4
+ 1  -96856.7  -97414.4  -1.00311e5  -1.00886e5
+[and 55997 more slices...]
+
+julia&gt; # This is not a deepcopy. The slice is programmatically indistinguishable from the original data.
+julia&gt; u === visds[:u]
+true</code></pre><p>This package provides a custom getindex function for the array-index-based data selection useful for slicing. For instance, this visds data set has the following dimensions.</p><pre><code class="language-julia hljs">julia&gt; dims(visds)
+Dim{:ch} Sampled{Int64} Int64[1] ForwardOrdered Irregular Points,
+Dim{:spw} Sampled{Int64} Int64[1, 2, 3, 4] ForwardOrdered Irregular Points,
+Dim{:data} Sampled{Int64} Int64[1, 2, …, 55997, 55998] ForwardOrdered Irregular Points,
+Dim{:pol} Sampled{Int64} Int64[1, 2, 3, 4] ForwardOrdered Irregular Points</code></pre><p>We might want to select data at a specific set of <code>:spw</code>, <code>:polarization</code> and <code>:data</code> columns. This package allows an intuitive data selection similar to python&#39;s <a href="https://docs.xarray.dev/en/stable/">xarray</a> data set, for instance,</p><pre><code class="language-julia hljs">julia&gt; # slicing at :spw = 4, :data=100:10000, :polarization = 2
+julia&gt; slice = visds[:, 4, 100:10000, 2]
+DimStack with dimensions: 
+  Dim{:ch} Sampled{Int64} Int64[1] ForwardOrdered Irregular Points,
+  Dim{:spw} Sampled{Int64} Int64[4] ForwardOrdered Irregular Points,
+  Dim{:data} Sampled{Int64} Int64[100, 101, …, 9999, 10000] ForwardOrdered Irregular Points,
+  Dim{:pol} Sampled{Int64} Int64[2] ForwardOrdered Irregular Points
+and 20 layers:
+  :visibility   ComplexF64 dims: Dim{:ch}, Dim{:spw}, Dim{:data}, Dim{:pol} (1×1×9901×1)
+  :sigma        Float64 dims: Dim{:ch}, Dim{:spw}, Dim{:data}, Dim{:pol} (1×1×9901×1)
+  :flag         Int8 dims: Dim{:ch}, Dim{:spw}, Dim{:data}, Dim{:pol} (1×1×9901×1)
+  :polarization String dims: Dim{:pol} (1)
+  :usec         Float64 dims: Dim{:data} (9901)
+  :vsec         Float64 dims: Dim{:data} (9901)
+  :wsec         Float64 dims: Dim{:data} (9901)
+  :mjd          Float64 dims: Dim{:data} (9901)
+  :Δmjd         Float64 dims: Dim{:data} (9901)
+  :antid1       Int64 dims: Dim{:data} (9901)
+  :antid2       Int64 dims: Dim{:data} (9901)
+  :scan         Int64 dims: Dim{:data} (9901)
+  :νspw         Float64 dims: Dim{:spw} (1)
+  :Δνch         Float64 dims: Dim{:spw} (1)
+  :sideband     Float64 dims: Dim{:spw} (1)
+  :ν            Float64 dims: Dim{:ch}, Dim{:spw} (1×1)
+  :u            Float64 dims: Dim{:ch}, Dim{:spw}, Dim{:data} (1×1×9901)
+  :v            Float64 dims: Dim{:ch}, Dim{:spw}, Dim{:data} (1×1×9901)
+  :w            Float64 dims: Dim{:ch}, Dim{:spw}, Dim{:data} (1×1×9901)
+  :uvdist       Float64 dims: Dim{:ch}, Dim{:spw}, Dim{:data} (1×1×9901)</code></pre><p>This will give a complete set of the slice. In the original DimensionalData, this sort of slicing is not generally allowed. Note that the index-based slice of <code>DimStack</code> is all deepcopy and programmatically distinguishable. This is coming from the nature of the original getindex function for <code>DimArray</code> in DimensionalData.jl.</p><pre><code class="language-julia hljs">julia&gt; # slice is a deep copy of the original array data
+julia&gt; slice[:visibility].data === visds[:visibility].data[:, 4, 100:10000, 2]
+false
+julia&gt; slice[:visibility].data == visds[:visibility].data[:, 4, 100:10000, 2]
+true</code></pre><h2 id="Append-a-DimArray-to-a-DimStack"><a class="docs-heading-anchor" href="#Append-a-DimArray-to-a-DimStack">Append a <code>DimArray</code> to a <code>DimStack</code></a><a id="Append-a-DimArray-to-a-DimStack-1"></a><a class="docs-heading-anchor-permalink" href="#Append-a-DimArray-to-a-DimStack" title="Permalink"></a></h2><p>The package provides the <code>append</code> method to add a <code>DimArray</code> to the given <code>DimStack</code> data set.</p><article class="docstring"><header><a class="docstring-binding" id="EHTDimensionalData.append-Tuple{DimStack, DimArray}" href="#EHTDimensionalData.append-Tuple{DimStack, DimArray}"><code>EHTDimensionalData.append</code></a> — <span class="docstring-category">Method</span></header><section><div><pre><code class="language-julia hljs">append(dataset::DimStack, array::DimArray)::DimStack</code></pre><p>Append a DimArray data into the given DimStack data set. If there is already an array with the same key in DimStack, it will be overwritten by the array newly appended. The newly appended <code>DimArray</code> or other <code>DimArray</code>s inherited from the <code>DimStack</code> data set are programmatically indistinguishable from the original ones.</p><p><strong>Examples</strong></p><pre><code class="language-julia hljs">julia&gt; # suppose that you add `da::DimArray` with the name of `:newcol` into `ds::DimStack`.
+julia&gt; newds = append(ds, da)
+
+julia&gt; # newds is a newly formed `DimStack` because `DimStack` uses `NamedTuple｀which is immutable.
+julia&gt; newds == ds
+false
+
+julia&gt; # The appended `DimArray` or any other `DimArray`s are programmatically indistinguishable.
+julia&gt; newds[:newcol] === da
+true
+julia&gt; newds[:orgcol] === ds[:orgcol]
+true</code></pre></div><a class="docs-sourcelink" target="_blank" href="https://github.com/EHTJulia/EHTDimensionalData.jl/blob/a48fd7ca16c581c2c780ac0ad1338ddc5190aa7f/src/append.jl#L3-L26">source</a></section></article><h2 id="Concatenate-two-DimStacks"><a class="docs-heading-anchor" href="#Concatenate-two-DimStacks">Concatenate two <code>DimStack</code>s</a><a id="Concatenate-two-DimStacks-1"></a><a class="docs-heading-anchor-permalink" href="#Concatenate-two-DimStacks" title="Permalink"></a></h2><p>The package provides the <code>concat</code> method to concatenate two <code>DimStack</code> data sets.</p><article class="docstring"><header><a class="docstring-binding" id="EHTDimensionalData.concat-Tuple{DimStack, DimStack}" href="#EHTDimensionalData.concat-Tuple{DimStack, DimStack}"><code>EHTDimensionalData.concat</code></a> — <span class="docstring-category">Method</span></header><section><div><pre><code class="language-julia hljs">concat(dataset1::DimStack, dataset2::DimStack)::DimStack</code></pre><p>Concatanate two DimStack data sets. If keys are duplicated, dimarrays of dataset1 will be overwritten. <code>DimArray</code>s in the concatenated <code>DimStack</code> data set are programmatically indistinguishable from those in the original <code>DimStack</code> data sets.</p></div><a class="docs-sourcelink" target="_blank" href="https://github.com/EHTJulia/EHTDimensionalData.jl/blob/a48fd7ca16c581c2c780ac0ad1338ddc5190aa7f/src/concat.jl#L3-L9">source</a></section></article></article><nav class="docs-footer"><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.24 on <span class="colophon-date" title="Thursday 16 March 2023 16:05">Thursday 16 March 2023</span>. Using Julia version 1.8.5.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
