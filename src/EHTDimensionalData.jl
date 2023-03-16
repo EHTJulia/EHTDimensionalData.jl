@@ -6,9 +6,11 @@ using Reexport
 
 # Other Modules
 using Base
+using EHTUtils
 
 # Source Codes
 include("./append.jl")
 include("./concat.jl")
+include("./getindex.jl")
 
 end
