@@ -1,6 +1,8 @@
-
 # Overwrite the getindex function for DimStack.
-function Base.getindex(ds::DimStack, idx::Union{Int,Colon,AbstractRange,AbstractArray,Tuple}...)
+function Base.getindex(
+    ds::DimStack,
+    idx::Union{Int,Colon,AbstractRange,AbstractArray,Tuple}...
+)
     dim_names = name.(dims(ds))
     ndim = length(dim_names)
     nlist = size(ds)
