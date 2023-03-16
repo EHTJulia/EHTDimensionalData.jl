@@ -16,6 +16,7 @@ makedocs(;
     ),
     pages=[
         "Home" => "index.md",
+        "Custom `DimStack` Methods" => "dimstack.md"
     ]
 )
 
