@@ -1,6 +1,7 @@
 # Custom Methods for `DimStack`
 The package provides and aims to implement custom methods to handle the `DimStack` data type originally in [DimensionalData.jl](https://github.com/rafaqz/DimensionalData.jl).
 
+
 ## Data Selection
 The package partially overwrites the getindex method for the `DimStack` data type. Supposed that you have the following `visds::DimStack` data, which is a radio-astronomy interferometric data set loaded by [EHTUVData.jl](https://github.com/EHTJulia/EHTUVData.jl).
 ```julia
@@ -97,11 +98,13 @@ julia> slice[:visibility].data == visds[:visibility].data[:, 4, 100:10000, 2]
 true
 ```
 
+
 ## Append a `DimArray` to a `DimStack`
 The package provides the `append` method to add a `DimArray` to the given `DimStack` data set.
 ```@docs
 append(ds::DimStack, array::DimArray)
 ```
+
 
 ## Concatenate two `DimStack`s 
 The package provides the `concat` method to concatenate two `DimStack` data sets.
